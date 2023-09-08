@@ -14,6 +14,8 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
   get: ^4.6.5
+  flutter_blue_plus:
+    path: hc_flutter_blue_plus
 
 dev_dependencies:
   flutter_test:
