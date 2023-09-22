@@ -5,7 +5,8 @@ import 'package:hcm_core/utils/enum_health_index.dart';
 
 class CardWidget {
   /// 혈당 위험도
-  static Widget getDottedCard(BuildContext context, HealthIndex healthIndex) {
+  static Widget getDottedCard(
+      BuildContext context, HealthIndex healthIndex, String value) {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.colorGrey0e606eaa,
@@ -28,11 +29,11 @@ class CardWidget {
           children: <Widget>[
             buildHealthInfoRow(healthIndex),
             const SizedBox(height: 16),
-            buildHealthImoticonRow(healthIndex),
+            buildHealthImoticonRow(healthIndex, value),
             const SizedBox(height: 13),
             const Divider(color: AppColors.greycecfd2, height: 0, thickness: 1),
             const SizedBox(height: 15),
-            buildStressIndicator(),
+            buildStressIndicator(value),
             const SizedBox(height: 6),
             buildIndicatorLabels()
           ],
@@ -42,7 +43,8 @@ class CardWidget {
   }
 
   /// 일반 PHR 카드
-  static Widget getOrdinalCard(BuildContext context, HealthIndex healthIndex) {
+  static Widget getOrdinalCard(
+      BuildContext context, HealthIndex healthIndex, String value) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -65,7 +67,7 @@ class CardWidget {
           children: <Widget>[
             buildHealthInfoRow(healthIndex),
             const SizedBox(height: 16),
-            buildHealthValueRow(healthIndex),
+            buildHealthValueRow(healthIndex, value),
           ],
         ),
       ),
@@ -73,7 +75,8 @@ class CardWidget {
   }
 
   /// 스트레스 카드
-  static Widget getStressCard(BuildContext context, HealthIndex healthIndex) {
+  static Widget getStressCard(
+      BuildContext context, HealthIndex healthIndex, String value) {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -96,11 +99,11 @@ class CardWidget {
           children: <Widget>[
             buildHealthInfoRow(healthIndex),
             const SizedBox(height: 16),
-            buildHealthValueRow(healthIndex),
+            buildHealthValueRow(healthIndex, value),
             const SizedBox(height: 13),
             const Divider(color: AppColors.greycecfd2, height: 0, thickness: 1),
             const SizedBox(height: 15),
-            buildStressIndicator(),
+            buildStressIndicator(value),
             const SizedBox(height: 6),
             buildIndicatorLabels()
           ],
@@ -159,7 +162,14 @@ class CardWidget {
     );
   }
 
-  static Row buildHealthValueRow(HealthIndex healthIndex) {
+  static Row buildHealthValueRow(HealthIndex healthIndex, String value) {
+    String parsedValue = "";
+    if (value.contains('.')) {
+      parsedValue = double.parse(value).toString();
+    } else {
+      parsedValue = int.parse(value).toString();
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
@@ -169,8 +179,8 @@ class CardWidget {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            const Text(
-              '100',
+            Text(
+              parsedValue,
               style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(width: 8.0),
@@ -184,37 +194,66 @@ class CardWidget {
     );
   }
 
-  static Row buildHealthImoticonRow(HealthIndex healthIndex) {
+  static Row buildHealthImoticonRow(HealthIndex healthIndex, String value) {
+    String type = "";
+    switch (healthIndex) {
+      case HealthIndex.BloodPressureRisk:
+        type = "혈압";
+        break;
+
+      case HealthIndex.BloodSugarRisk:
+        type = "혈당";
+        break;
+
+      default:
+        break;
+    }
+
+    String msg = "";
+    int imocitonLevel = 0;
+
+    if (int.parse(value) < 30) {
+      msg = "${type} 지수가 낮습니다.";
+      imocitonLevel = 0;
+    } else if (int.parse(value) < 70) {
+      msg = "${type} 지수가 정상입니다.";
+      imocitonLevel = 1;
+    } else {
+      msg = "${type} 지수가 높습니다.";
+      imocitonLevel = 2;
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
       children: <Widget>[
-        buildHealthImoticon(healthIndex),
-        buildHealthStatus(),
+        buildHealthImoticon(healthIndex, imocitonLevel),
+        buildHealthStatusText(msg),
       ],
     );
   }
 
-  static Row buildHealthImoticon(HealthIndex healthIndex) {
+  static Row buildHealthImoticon(HealthIndex healthIndex, int imocitonLevel) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       textBaseline: TextBaseline.alphabetic,
       children: [
         const SizedBox(width: 10.0),
-        _buildFaceImoticon(healthIndex),
+        _buildFaceImoticon(healthIndex, imocitonLevel),
         const SizedBox(width: 4.0),
         buildHealthUnit(healthIndex),
       ],
     );
   }
 
-  static Widget _buildFaceImoticon(HealthIndex healthIndex) {
-    switch (healthIndex) {
-      case HealthIndex.BloodSugarRisk:
-        return _buildImageAsset('assets/img/emoticon_bad.png');
-      case HealthIndex.BloodPressureRisk:
+  static Widget _buildFaceImoticon(HealthIndex healthIndex, int imocitonLevel) {
+    switch (imocitonLevel) {
+      case 0:
+      case 1:
         return _buildImageAsset('assets/img/emoticon_good.png');
+      case 2:
+        return _buildImageAsset('assets/img/emoticon_bad.png');
       default:
         return _buildImageAsset('assets/img/emoticon_good.png');
     }
@@ -234,18 +273,20 @@ class CardWidget {
     );
   }
 
-  static Text buildHealthStatus() {
+  static Text buildHealthStatusText(String msg) {
     return Text(
-      "혈당 지수가 높습니다.",
+      msg,
       style: TextStyle(fontSize: 14.0),
     );
   }
 
-  static Stack buildStressIndicator() {
+  static Stack buildStressIndicator(String value) {
+    var indicatorNum = (22 * (int.parse(value) / 100)).toInt();
+
     return Stack(
       children: [
         buildIndicatorBg(22),
-        buildIndicator(18),
+        buildIndicator(indicatorNum),
       ],
     );
   }

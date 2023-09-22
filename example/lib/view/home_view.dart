@@ -10,10 +10,10 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       body: Column(
         children: [
-          HcmCoreUI.getBloodSugarRiskCard(context),
-          HcmCoreUI.getBloodPressureRiskCard(context),
-          HcmCoreUI.getStressCard(context),
-          HcmCoreUI.getOrdinalCard(context, HealthIndex.BloodPressure)
+          HcmCoreUI.getBloodSugarRiskCard(context, "45"),
+          HcmCoreUI.getBloodPressureRiskCard(context, "34"),
+          HcmCoreUI.getStressCard(context, "50"),
+          HcmCoreUI.getOrdinalCard(context, HealthIndex.BloodPressure, "50")
         ],
       ),
     );
