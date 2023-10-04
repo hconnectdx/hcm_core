@@ -21,23 +21,44 @@ class CardWidget {
       ),
       width: MediaQuery.of(context).size.width * 0.8,
       height: 184.0,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(23.5, 0, 23.5, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            buildHealthInfoRow(healthIndex),
-            const SizedBox(height: 16),
-            buildHealthImoticonRow(healthIndex, value),
-            const SizedBox(height: 13),
-            const Divider(color: AppColors.greycecfd2, height: 0, thickness: 1),
-            const SizedBox(height: 15),
-            buildStressIndicator(value),
-            const SizedBox(height: 6),
-            buildIndicatorLabels()
-          ],
-        ),
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(23.5, 0, 23.5, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                buildHealthInfoRow(healthIndex),
+                const SizedBox(height: 16),
+                buildHealthImoticonRow(healthIndex, value),
+                const SizedBox(height: 13),
+                const Divider(
+                    color: AppColors.greycecfd2, height: 0, thickness: 1),
+                const SizedBox(height: 15),
+                buildStressIndicator(value),
+                const SizedBox(height: 6),
+                buildIndicatorLabels()
+              ],
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.0),
+              color: Color(0x76000000),
+            ),
+            // 위젯의 배경 색상을 투명하게 설정합니다.
+            child: const Center(
+              child: Text(
+                '개발 중',
+                style: TextStyle(
+                  fontSize: 35,
+                  color: Colors.white, // 텍스트 색상 설정 (예: 파란색)
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -190,8 +211,8 @@ class CardWidget {
             ),
           ],
         ),
-
-        if (healthIndex == HealthIndex.Stress && parsedValue != "0") _buildStressMsg(int.parse(parsedValue)) ,
+        if (healthIndex == HealthIndex.Stress && parsedValue != "0")
+          _buildStressMsg(int.parse(parsedValue)),
       ],
     );
   }
@@ -244,7 +265,7 @@ class CardWidget {
       textBaseline: TextBaseline.alphabetic,
       children: <Widget>[
         buildHealthImoticon(healthIndex, imocitonLevel),
-        buildHealthStatusText(msg),
+        // buildHealthStatusText(msg),
       ],
     );
   }
@@ -317,7 +338,6 @@ class CardWidget {
   }
 
   static Row buildIndicator(int count) {
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
