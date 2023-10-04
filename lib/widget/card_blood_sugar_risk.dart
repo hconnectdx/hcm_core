@@ -180,7 +180,7 @@ class CardWidget {
           textBaseline: TextBaseline.alphabetic,
           children: [
             Text(
-              parsedValue,
+              (parsedValue == "0" || parsedValue == "0.0") ? "--" : parsedValue,
               style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(width: 8.0),
@@ -190,7 +190,22 @@ class CardWidget {
             ),
           ],
         ),
+
+        if (healthIndex == HealthIndex.Stress && parsedValue != "0") _buildStressMsg(int.parse(parsedValue)) ,
       ],
+    );
+  }
+
+  static Widget _buildStressMsg(int value) {
+    var stressMsg = "";
+    if (value >= 70) {
+      stressMsg = "스트레스 지수가 높습니다.";
+    } else {
+      stressMsg = "스트레스 지수가 정상입니다.";
+    }
+    return Text(
+      stressMsg,
+      style: TextStyle(fontSize: 14.0),
     );
   }
 
@@ -302,11 +317,12 @@ class CardWidget {
   }
 
   static Row buildIndicator(int count) {
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
         22,
-        (index) => buildCircle((index <= count)
+        (index) => buildCircle((index <= count - 1)
             ? AppColors.getIndicatorColor(index)
             : Colors.transparent),
       ),
