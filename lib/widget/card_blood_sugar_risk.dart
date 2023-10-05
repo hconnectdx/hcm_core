@@ -213,6 +213,8 @@ class CardWidget {
         ),
         if (healthIndex == HealthIndex.Stress && parsedValue != "0")
           _buildStressMsg(int.parse(parsedValue)),
+        if (healthIndex == HealthIndex.Activity && parsedValue != "0")
+          _buildActivityMsg(int.parse(parsedValue)),
       ],
     );
   }
@@ -221,11 +223,20 @@ class CardWidget {
     var stressMsg = "";
     if (value >= 70) {
       stressMsg = "스트레스 지수가 높습니다.";
-    } else {
-      stressMsg = "스트레스 지수가 정상입니다.";
     }
     return Text(
       stressMsg,
+      style: TextStyle(fontSize: 14.0),
+    );
+  }
+
+  static Widget _buildActivityMsg(int value) {
+    var activityMsg = "저강도 운동";
+    // if (value >= 70) {
+    //   stressMsg = "스트레스 지수가 높습니다.";
+    // }
+    return Text(
+      activityMsg,
       style: TextStyle(fontSize: 14.0),
     );
   }

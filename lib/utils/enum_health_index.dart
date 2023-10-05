@@ -48,7 +48,7 @@ extension HealthIndexExtension on HealthIndex {
       case HealthIndex.Stress:
         return '%';
       case HealthIndex.Activity:
-        return 'Kcal';
+        return 'kcal';
       default:
         return '';
     }

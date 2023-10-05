@@ -21,6 +21,10 @@ class HcmCoreBle extends FlutterBluePlus {
         androidUsesFineLocation: Platform.isAndroid);
   }
 
+  static void stopScan() {
+    FlutterBluePlus.stopScan();
+  }
+
   static final isScanning = FlutterBluePlus.isScanning;
 }
 

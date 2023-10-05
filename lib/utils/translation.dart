@@ -30,6 +30,7 @@ class AppTranslation extends Translations {
           // Discovery View
           'bluetooth_connect': 'Connect Bluetooth',
           'bluetooth_connect_device': 'Bluetooth Devices',
+          'bluetooth_connected_device': 'Connected Device',
           'pin_code_information': 'Pin number can be checked on the band',
           'pin_code_information_sub':
               'How to enter PIN number screen: Band home screen > Settings > Bluetooth',
@@ -74,6 +75,7 @@ class AppTranslation extends Translations {
           // DiscoveryView
           'bluetooth_connect': '블루투스 연동',
           'bluetooth_connect_device': '블루투스 연동 디바이스',
+          'bluetooth_connected_device': '연결된 디바이스',
           'pin_code_information': '핀 번호는 밴드에서 확인 가능합니다',
           'pin_code_information_sub': '핀번호 화면 진입 방법 : 밴드 홈화면 > 설정 > 블루투스',
 
