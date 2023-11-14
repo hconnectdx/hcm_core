@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hcm_core/core/dio/dio_client.dart';
 import 'package:hcm_core/utils/app_colors.dart';
 import 'package:hcm_core/utils/translation.dart';
 import 'package:hcm_core_example/binding/init_binding.dart';
 import 'package:hcm_core_example/view/home_view.dart';
 
 void main() {
+  DioClient().initialize(baseUrl: 'https://mapi-stg.health-on.co.kr');
   runApp(HcmCoreApp());
 }
 
