@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core/core/dio/dio_client.dart';
-import 'package:hcm_core/utils/app_colors.dart';
+import 'package:hcm_core/utils/colors.dart';
 import 'package:hcm_core/utils/translation.dart';
 import 'package:hcm_core_example/binding/init_binding.dart';
+import 'package:hcm_core_example/view/ble_view.dart';
+import 'package:hcm_core_example/view/dio_view.dart';
 import 'package:hcm_core_example/view/home_view.dart';
 
 void main() {
@@ -18,13 +20,17 @@ class HcmCoreApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           fontFamily: 'SpoqaHanSansNeo',
-          scaffoldBackgroundColor: AppColors.backgroundColor),
+          scaffoldBackgroundColor: HCMColors.backgroundColor),
       darkTheme: ThemeData(fontFamily: 'SpoqaHanSansNeo'),
       initialRoute: '/home',
       translations: AppTranslation(),
       locale: Get.deviceLocale,
       getPages: [
         GetPage(name: '/home', page: () => HomeView(), binding: InitBinding()),
+        GetPage(
+            name: '/dio_view', page: () => DioView(), binding: InitBinding()),
+        GetPage(
+            name: '/ble_view', page: () => BleView(), binding: InitBinding()),
       ],
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
+class HCMColors {
   static const Color backgroundColor = Color(0xFFF8F8F8);
   static const Color white = Color(0xFFFFFFFF);
   static const Color colorGreen8cb96f = Color(0xff8cb96f);
@@ -35,26 +35,26 @@ class AppColors {
       case 3:
       case 4:
       case 5:
-        return AppColors.colorGreen8cb96f;
+        return HCMColors.colorGreen8cb96f;
       case 6:
       case 7:
       case 8:
       case 9:
       case 10:
       case 11:
-        return AppColors.colorYellowfdb800;
+        return HCMColors.colorYellowfdb800;
       case 12:
       case 13:
       case 14:
       case 15:
       case 16:
       case 17:
-        return AppColors.colorOrangee47d40;
+        return HCMColors.colorOrangee47d40;
       case 18:
       case 19:
       case 20:
       case 21:
-        return AppColors.colorRedc10707;
+        return HCMColors.colorRedc10707;
       default:
         return Colors.transparent; // Default color if index out of range
     }

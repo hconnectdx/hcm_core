@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hcm_core/utils/app_colors.dart';
+import 'package:hcm_core/utils/colors.dart';
 import 'package:hcm_core/utils/enum_health_index.dart';
 
 class CardWidget {
@@ -9,7 +9,7 @@ class CardWidget {
       BuildContext context, HealthIndex healthIndex, String value) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.colorGrey0e606eaa,
+        color: HCMColors.colorGrey0e606eaa,
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: const [
           BoxShadow(
@@ -34,7 +34,7 @@ class CardWidget {
                 buildHealthImoticonRow(healthIndex, value),
                 const SizedBox(height: 13),
                 const Divider(
-                    color: AppColors.greycecfd2, height: 0, thickness: 1),
+                    color: HCMColors.greycecfd2, height: 0, thickness: 1),
                 const SizedBox(height: 15),
                 buildStressIndicator(value),
                 const SizedBox(height: 6),
@@ -100,7 +100,7 @@ class CardWidget {
       BuildContext context, HealthIndex healthIndex, String value) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: HCMColors.white,
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: const [
           BoxShadow(
@@ -122,7 +122,7 @@ class CardWidget {
             const SizedBox(height: 16),
             buildHealthValueRow(healthIndex, value),
             const SizedBox(height: 13),
-            const Divider(color: AppColors.greycecfd2, height: 0, thickness: 1),
+            const Divider(color: HCMColors.greycecfd2, height: 0, thickness: 1),
             const SizedBox(height: 15),
             buildStressIndicator(value),
             const SizedBox(height: 6),
@@ -169,7 +169,7 @@ class CardWidget {
       width: 24.0,
       height: 24.0,
       decoration: BoxDecoration(
-        color: AppColors.colorGreyf2f4fb,
+        color: HCMColors.colorGreyf2f4fb,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: _buildImageAsset(healthIndex.iconPath),
@@ -343,7 +343,7 @@ class CardWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
         count,
-        (index) => buildCircle(AppColors.greyc8c9cc),
+        (index) => buildCircle(HCMColors.greyc8c9cc),
       ),
     );
   }
@@ -354,7 +354,7 @@ class CardWidget {
       children: List.generate(
         22,
         (index) => buildCircle((index <= count - 1)
-            ? AppColors.getIndicatorColor(index)
+            ? HCMColors.getIndicatorColor(index)
             : Colors.transparent),
       ),
     );
