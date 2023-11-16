@@ -2,8 +2,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:hcm_core/core/dio/dio_client.dart';
-import 'package:hcm_core/utils/hive_manager/hive_manager.dart';
+import 'package:hcm_core/core/dio/hc_dio.dart';
+import 'package:hcm_core/utils/hive/hc_hive.dart';
 
 class AuthRepository {
   static final AuthRepository _instance = AuthRepository._internal();
@@ -27,12 +27,12 @@ class AuthRepository {
   }
 
   Future<void> _loginStep1(String userMobileNo, String userPwd) async {
-    final response = await DioClient().post('/IF-HLO-CHMC-0300', data: {
+    final response = await HCDio.post('/IF-HLO-CHMC-0300', data: {
       'userCountryNo': '82',
       'userMobileNo': userMobileNo,
       'userPwd': userPwd,
       'osType': Platform.isAndroid ? '90103200' : '90103100',
-      'registrationId': DioClient().token,
+      'registrationId': HCDio.token,
       'languageCode': '10801300',
       'appVersion': '1.2.7',
       'reqDate': "20231108171931",
@@ -41,11 +41,11 @@ class AuthRepository {
     if (response.statusCode == 200) {
       final responseData = response.data;
       final tokensData = responseData['data'];
-      await HiveTokenManager().saveTokens(
+      await HCHive.saveTokens(
         tokensData['accessToken'],
         tokensData['refreshToken'],
       );
-      await HiveTokenManager().saveAuthAndSno(
+      await HCHive.saveAuthAndSno(
         authId: tokensData['authId'],
         authKey: tokensData['authKey'],
         //authKey: tokensData['userSno'],
@@ -60,8 +60,8 @@ class AuthRepository {
   }
 
   Future<void> _loginStep2() async {
-    final response = await DioClient().post('/IF-HLO-CHMC-0500', data: {
-      'authKey': await HiveTokenManager().getAuthKey(),
+    final response = await HCDio.post('/IF-HLO-CHMC-0500', data: {
+      'authKey': await HCHive.getAuthKey(),
       'pageNum': 0,
       'reqDate': "20231108171931",
     });
@@ -69,7 +69,7 @@ class AuthRepository {
     if (response.statusCode == 200) {
       final responseData = response.data;
       final tokensData = responseData['data'];
-      await HiveTokenManager().saveAuthAndSno(
+      await HCHive.saveAuthAndSno(
         userSno: tokensData['userSno'],
       );
     } else {

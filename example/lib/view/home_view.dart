@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core_example/controller/my_home_controller.dart';
 import 'package:hcm_core_example/view/ble_view.dart';
+import 'package:hcm_core_example/view/dio_view.dart';
 
 class HomeView extends GetView<HomeController> {
   @override
@@ -17,12 +18,12 @@ class HomeView extends GetView<HomeController> {
           // HcmCoreUI.getOrdinalCard(context, HealthIndex.BloodPressure, "50"),
           OutlinedButton(
               onPressed: () {
-                Get.toNamed('/ble_view');
+                Get.to(BleView());
               },
               child: Text('블루투스 샘플 확인')),
           OutlinedButton(
               onPressed: () {
-                Get.to(BleView());
+                Get.to(DioView());
               },
               child: Text('dio 샘플 확인')),
           // OutlinedButton(

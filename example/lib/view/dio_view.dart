@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core_example/comm/dio/auth_repository.dart';
-import 'package:hcm_core_example/comm/dio/dio_controller.dart';
+import 'package:hcm_core_example/getx_controller/dio_controller.dart';
 
 class DioView extends GetView<DioController> {
   @override
