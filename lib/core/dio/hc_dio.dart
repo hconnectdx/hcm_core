@@ -8,7 +8,7 @@ class HCDio {
   static const String token =
       "dKpI6DSWSLyVFx8UE6QDRQ:APA91bETqIZq1qz3Y5-gHsDHx3kL1VHU2rY0FRrW13NtP5yOzaMo9S9yiF_TYTVSEMmF54F3DxavJRimMVDXoLQYUSzMgTUl6H2CEWeASg4VJjjs0bXLvDRiHilsSOYsaqs73-dFU0we";
 
-  static void initialize({required String baseUrl}) {
+  static void initialize({required String baseUrl}) async {
     _dio.options = BaseOptions(baseUrl: baseUrl);
     _dio.interceptors.add(CustomInterceptor());
     _dio.interceptors.add(

@@ -10,7 +10,7 @@ class HCHive {
 
   static bool _initialized = false;
 
-  static Future<void> _initialize() async {
+  static Future<void> initialize() async {
     if (!_initialized) {
       await Hive.initFlutter();
       _initialized = true;
@@ -18,7 +18,7 @@ class HCHive {
   }
 
   static Future<Box<dynamic>> _openBox() async {
-    await _initialize();
+    await initialize();
     return await Hive.openBox(_authBox);
   }
 
