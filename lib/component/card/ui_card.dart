@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hcm_core/utils/colors.dart';
 import 'package:hcm_core/utils/enum_health_index.dart';
 
-class CardWidget {
+class HCComponentCard {
   /// 혈당 위험도
   static Widget getDottedCard(
       BuildContext context, HealthIndex healthIndex, String value) {
@@ -95,7 +95,11 @@ class CardWidget {
     );
   }
 
-  /// 스트레스 카드
+  /// 스트레스 카드를 호출 합니다.
+  ///
+  /// [context] - BuildContext
+  /// [healthIndex] - HealthIndex Enum
+  /// [value] - 스트레스 % 지수 (String)
   static Widget getStressCard(
       BuildContext context, HealthIndex healthIndex, String value) {
     return Container(

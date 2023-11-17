@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core_example/controller/my_home_controller.dart';
 import 'package:hcm_core_example/view/ble_view.dart';
+import 'package:hcm_core_example/view/component_view.dart';
 import 'package:hcm_core_example/view/dio_view.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -17,21 +18,23 @@ class HomeView extends GetView<HomeController> {
           // HcmCoreUI.getStressCard(context, "50"),
           // HcmCoreUI.getOrdinalCard(context, HealthIndex.BloodPressure, "50"),
           OutlinedButton(
-              onPressed: () {
-                Get.to(BleView());
-              },
-              child: Text('블루투스 샘플 확인')),
+            onPressed: () {
+              Get.to(BleView());
+            },
+            child: Text('블루투스 샘플 확인'),
+          ),
           OutlinedButton(
-              onPressed: () {
-                Get.to(DioView());
-              },
-              child: Text('dio 샘플 확인')),
-          // OutlinedButton(
-          //     onPressed: () {
-          //       AuthRepository()
-          //           .login(userMobileNo: "01000000000", userPwd: "116622");
-          //     },
-          //     child: Text('통신테스트')),
+            onPressed: () {
+              Get.to(DioView());
+            },
+            child: Text('dio 샘플 확인'),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              Get.to(ComponentView());
+            },
+            child: Text('Component샘플 확인'),
+          ),
         ],
       ),
     );
