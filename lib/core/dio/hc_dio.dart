@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hcm_core/core/dio/interceptor.dart';
-import 'package:hcm_core/utils/hive/hc_hive.dart';
+import 'package:hcm_core/core/hive/hc_hive.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class HCDio {
@@ -57,8 +57,8 @@ class HCDio {
       if (response.statusCode == 200 && response.data['retCd'] == '0') {
         final tokensData = response.data['data'];
         await HCHive.saveTokens(
-          tokensData['accessToken'],
-          tokensData['refreshToken'],
+          accessToken: tokensData['accessToken'],
+          refreshToken: tokensData['refreshToken'],
         );
         return tokensData['accessToken'];
       } else {

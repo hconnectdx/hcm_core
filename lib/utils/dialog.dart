@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core/utils/colors.dart';
-import 'package:lottie/lottie.dart';
 
 class HCMDialog {
   // 싱글톤 인스턴스
@@ -59,17 +58,10 @@ class HCMDialog {
               const SizedBox(height: 54),
               _buildDialogTitleAndDescription(),
               const SizedBox(height: 20),
-              _buildMeasureLottieImg(),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Container _buildMeasureLottieImg() {
-    return Container(
-      child: Lottie.asset('assets/lottie/bluetooth_scan_loading.json'),
     );
   }
 

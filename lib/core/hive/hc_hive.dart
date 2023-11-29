@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:logger/logger.dart';
 
 class HCHive {
   static const String _authBox = 'authBox';
@@ -17,13 +18,39 @@ class HCHive {
     }
   }
 
+  static void saveData(Map<String, dynamic> dataMap) async {
+    final box = await _openBox();
+    try {
+      for (String key in dataMap.keys) {
+        await box.put(key, dataMap[key]);
+      }
+    } catch (e) {
+      // 저장 중 오류 발생 시 로그 기록
+      Logger().e("Hive 저장 실패 메시지: $e");
+    }
+
+    // 모든 데이터가 성공적으로 저장된 후 로그 기록
+    Logger().d("저장 성공 $dataMap");
+  }
+
+  static Future<dynamic> getData(String key, {dynamic defaultValue}) async {
+    try {
+      final box = await _openBox();
+      return box.get(key, defaultValue: defaultValue);
+    } catch (e) {
+      // 오류 처리
+      print('Error retrieving data: $e');
+      return defaultValue; // 오류가 발생했을 때 기본값을 반환
+    }
+  }
+
   static Future<Box<dynamic>> _openBox() async {
     await initialize();
     return await Hive.openBox(_authBox);
   }
 
   static Future<void> saveTokens(
-      String accessToken, String refreshToken) async {
+      {required String accessToken, required String refreshToken}) async {
     final box = await _openBox();
     await box.put(_accessTokenKey, accessToken);
     await box.put(_refreshTokenKey, refreshToken);

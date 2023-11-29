@@ -13,15 +13,24 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
-  get: ^4.6.5
-  flutter_blue_plus: ^1.28.14
 
+  # state manager
+  get: ^4.6.5
+
+  # dio
   dio: ^5.3.3
   pretty_dio_logger: ^1.3.1
+
+  # ble
+  flutter_blue_plus: ^1.28.14
+
+  # DB
   hive: ^2.0.4
   hive_flutter: ^1.1.0
+
+  # Logger
   logger: ^2.0.2+1
-  lottie: ^2.5.0
+
 
 dev_dependencies:
   flutter_test:

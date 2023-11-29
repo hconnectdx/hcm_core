@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core_example/controller/my_home_controller.dart';
-import 'package:hcm_core_example/view/ble_view.dart';
-import 'package:hcm_core_example/view/component_view.dart';
-import 'package:hcm_core_example/view/dio_view.dart';
+import 'package:hcm_core_example/view/hcm_core/ble_view.dart';
+import 'package:hcm_core_example/view/hcm_core/dio_view.dart';
+import 'package:hcm_core_example/view/hcm_core/hive_view.dart';
+import 'package:hcm_core_example/view/hcm_gui/component_view.dart';
 
 class HomeView extends GetView<HomeController> {
   @override
@@ -34,6 +35,12 @@ class HomeView extends GetView<HomeController> {
               Get.to(ComponentView());
             },
             child: Text('Component샘플 확인'),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              Get.to(HiveView());
+            },
+            child: Text('Hive 샘플 확인'),
           ),
         ],
       ),

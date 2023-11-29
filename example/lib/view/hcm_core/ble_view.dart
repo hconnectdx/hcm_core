@@ -3,10 +3,9 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core/utils/colors.dart';
 import 'package:hcm_core_example/comm/ble/bluetooth_controller.dart';
-import 'package:lottie/lottie.dart';
 
 class BleView extends GetView<BluetoothController> {
-  DiscoveryView() {
+  BleView() {
     // controller.startScan();
   }
 
@@ -58,11 +57,7 @@ class BleView extends GetView<BluetoothController> {
 
   Widget _buildLoadingLottieImg() {
     return IconButton(
-      icon: Lottie.asset(
-        'assets/lottie/animation_ios_loading.json',
-        width: 25,
-        height: 25,
-      ),
+      icon: Icon(Icons.image),
       onPressed: () {},
     );
   }

@@ -42,8 +42,8 @@ class AuthRepository {
       final responseData = response.data;
       final tokensData = responseData['data'];
       await HCHive.saveTokens(
-        tokensData['accessToken'],
-        tokensData['refreshToken'],
+        accessToken: tokensData['accessToken'],
+        refreshToken: tokensData['refreshToken'],
       );
       await HCHive.saveAuthAndSno(
         authId: tokensData['authId'],

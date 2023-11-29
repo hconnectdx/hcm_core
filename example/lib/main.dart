@@ -4,8 +4,8 @@ import 'package:hcm_core/core/dio/hc_dio.dart';
 import 'package:hcm_core/utils/colors.dart';
 import 'package:hcm_core/utils/translation.dart';
 import 'package:hcm_core_example/binding/init_binding.dart';
-import 'package:hcm_core_example/view/ble_view.dart';
-import 'package:hcm_core_example/view/dio_view.dart';
+import 'package:hcm_core_example/view/hcm_core/ble_view.dart';
+import 'package:hcm_core_example/view/hcm_core/dio_view.dart';
 import 'package:hcm_core_example/view/home_view.dart';
 
 void main() {

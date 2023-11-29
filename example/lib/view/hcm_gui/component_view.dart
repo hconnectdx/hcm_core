@@ -10,7 +10,8 @@ class ComponentView extends GetView {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            HCComponentCard.getStressCard(context, HealthIndex.HeartRate, "10")
+            HCComponentCard.getStressCard(context, HealthIndex.HeartRate, "10"),
+            // HCComponentGraphBar.getBar()
           ],
         ),
       ),
