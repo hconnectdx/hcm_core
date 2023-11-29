@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core/core/dio/hc_dio.dart';
-import 'package:hcm_core/utils/colors.dart';
-import 'package:hcm_core/utils/translation.dart';
 import 'package:hcm_core_example/binding/init_binding.dart';
 import 'package:hcm_core_example/view/hcm_core/ble_view.dart';
 import 'package:hcm_core_example/view/hcm_core/dio_view.dart';
@@ -19,11 +17,9 @@ class HcmCoreApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          fontFamily: 'SpoqaHanSansNeo',
-          scaffoldBackgroundColor: HCMColors.backgroundColor),
+          fontFamily: 'SpoqaHanSansNeo', scaffoldBackgroundColor: Colors.white),
       darkTheme: ThemeData(fontFamily: 'SpoqaHanSansNeo'),
       initialRoute: '/home',
-      translations: AppTranslation(),
       locale: Get.deviceLocale,
       getPages: [
         GetPage(name: '/home', page: () => HomeView(), binding: InitBinding()),

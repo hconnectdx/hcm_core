@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
-import 'package:hcm_core/utils/colors.dart';
 import 'package:hcm_core_example/comm/ble/bluetooth_controller.dart';
 
 class BleView extends GetView<BluetoothController> {
@@ -19,10 +18,10 @@ class BleView extends GetView<BluetoothController> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      iconTheme: const IconThemeData(color: HCMColors.grey707070),
+      iconTheme: const IconThemeData(color: Colors.white),
       elevation: 0.5,
       centerTitle: true,
-      backgroundColor: HCMColors.greyf7f7f7,
+      backgroundColor: Colors.blue,
       title: _buildAppBarTitle(),
       actions: _buildAppBarActions(),
       leading: _buildLeadingIcon(),
@@ -40,7 +39,7 @@ class BleView extends GetView<BluetoothController> {
     return Text(
       'bluetooth_connect_device'.tr,
       style: TextStyle(
-        color: HCMColors.grey707070,
+        color: Colors.lightBlue,
         fontSize: 15.0,
         fontWeight: FontWeight.bold,
       ),
@@ -86,7 +85,7 @@ class BleView extends GetView<BluetoothController> {
           const SizedBox(height: 31),
           Text(
             'bluetooth_connect_device'.tr,
-            style: TextStyle(color: HCMColors.black0a0a0a, fontSize: 14.0),
+            style: TextStyle(color: Colors.lightBlue, fontSize: 14.0),
           ),
           const SizedBox(height: 12),
           Flexible(child: _buildDiscoveryList()),
@@ -108,7 +107,7 @@ class BleView extends GetView<BluetoothController> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
-        color: HCMColors.white,
+        color: Colors.black,
       ),
       child: Obx(
         () => ListView.builder(
@@ -129,7 +128,7 @@ class BleView extends GetView<BluetoothController> {
         Container(height: 30),
         Text(
           '연결된 디바이스',
-          style: TextStyle(color: HCMColors.black0a0a0a, fontSize: 14.0),
+          style: TextStyle(color: Colors.black, fontSize: 14.0),
         ),
         Obx(
           () => Card(
@@ -269,7 +268,7 @@ class BleView extends GetView<BluetoothController> {
       height: 67,
       width: double.maxFinite,
       decoration: const BoxDecoration(
-          color: HCMColors.colorBlue140056ac,
+          color: Colors.black,
           borderRadius: BorderRadius.all(Radius.circular(14.0))),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -279,11 +278,11 @@ class BleView extends GetView<BluetoothController> {
             padding: const EdgeInsets.only(bottom: 5, left: 18),
             child: Row(
               children: [
-                const Icon(Icons.info, color: HCMColors.blue0060af),
+                const Icon(Icons.info, color: Colors.black),
                 Container(width: 3),
                 Text("pin_code_information".tr,
                     style: const TextStyle(
-                      color: HCMColors.blue0060af,
+                      color: Colors.black,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ))

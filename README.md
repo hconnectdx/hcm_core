@@ -4,7 +4,7 @@
 아래의 기능을 지원합니다.
 - Bluetooth
 - API 통신
-- 각종 UI Component
+- Local DB (Hive)
 
 
 
