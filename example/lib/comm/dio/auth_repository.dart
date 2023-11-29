@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:hcm_core/core/dio/hc_dio.dart';
-import 'package:hcm_core/utils/hive/hc_hive.dart';
+import 'package:hcm_core/core/hive/hc_hive.dart';
 
 class AuthRepository {
   static final AuthRepository _instance = AuthRepository._internal();

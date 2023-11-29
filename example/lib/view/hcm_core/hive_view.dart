@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hcm_core/utils/hive/hc_hive.dart';
+import 'package:hcm_core/core/hive/hc_hive.dart';
 
 class HiveView extends GetView {
   @override
