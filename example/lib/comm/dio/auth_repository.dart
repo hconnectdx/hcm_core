@@ -32,7 +32,7 @@ class AuthRepository {
       'userMobileNo': userMobileNo,
       'userPwd': userPwd,
       'osType': Platform.isAndroid ? '90103200' : '90103100',
-      'registrationId': HCDio.token,
+      'registrationId': HCDio.temp_token,
       'languageCode': '10801300',
       'appVersion': '1.2.7',
       'reqDate': "20231108171931",

@@ -5,11 +5,17 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class HCDio {
   static final Dio _dio = Dio();
-  static const String token =
+
+  // 임시적으로 사용하는 fcm 토큰
+  static const String temp_token =
       "dKpI6DSWSLyVFx8UE6QDRQ:APA91bETqIZq1qz3Y5-gHsDHx3kL1VHU2rY0FRrW13NtP5yOzaMo9S9yiF_TYTVSEMmF54F3DxavJRimMVDXoLQYUSzMgTUl6H2CEWeASg4VJjjs0bXLvDRiHilsSOYsaqs73-dFU0we";
 
-  static void initialize({required String baseUrl}) async {
-    _dio.options = BaseOptions(baseUrl: baseUrl);
+  static void initialize(
+      {required String baseUrl, Map<String, dynamic>? headers}) {
+    _dio.options = BaseOptions(
+      baseUrl: baseUrl,
+      headers: headers ?? {}, // 헤더 추가
+    );
     _dio.interceptors.add(CustomInterceptor());
     _dio.interceptors.add(
       PrettyDioLogger(
