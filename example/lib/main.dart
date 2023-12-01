@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core/core/dio/hc_dio.dart';
 import 'package:hcm_core_example/binding/init_binding.dart';
-import 'package:hcm_core_example/view/hcm_core/ble_view.dart';
 import 'package:hcm_core_example/view/hcm_core/dio_view.dart';
 import 'package:hcm_core_example/view/home_view.dart';
 
@@ -24,9 +23,7 @@ class HcmCoreApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/home', page: () => HomeView(), binding: InitBinding()),
         GetPage(
-            name: '/dio_view', page: () => DioView(), binding: InitBinding()),
-        GetPage(
-            name: '/ble_view', page: () => BleView(), binding: InitBinding()),
+            name: '/dio_view', page: () => DioView(), binding: InitBinding())
       ],
     );
   }
