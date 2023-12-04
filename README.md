@@ -32,7 +32,7 @@ HCDio.initialize(
 
 #### POST
 ```dart
-final response = await HCDio.post(
+Response response = await HCDio.post(
       '/IF-HLO-CHMC-0300',
       data: {
         'userCountryNo': '82',
@@ -49,6 +49,33 @@ final response = await HCDio.post(
       },
     );
 ```
+
+#### GET
+```dart
+Response response = await HCDio.get(
+      '/IF-HLO-CHMC-XXXX',
+      queryParameters: {
+        'id': userId
+      },
+      headers: {
+        'Authorization': 'Bearer your_access_token'
+      },
+    );
+```
+
+#### DELETE
+```dart
+Response response = await HCDio.delete(
+      '/IF-HLO-CHMC-XXXX',
+      queryParameters: {
+        'id': userId
+      },
+      headers: {
+        'Authorization': 'Bearer your_access_token'
+      },
+    );
+```
+
 ---
 ### HCHive
 #### 저장

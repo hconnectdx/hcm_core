@@ -35,6 +35,30 @@ class HCDio {
     return _dio.post(path, data: data, options: Options(headers: headers));
   }
 
+  // get 메소드 추가
+  static Future<Response> get(String path,
+      {Map<String, dynamic>? queryParameters,
+      Map<String, dynamic>? headers}) async {
+    return _dio.get(
+      path,
+      queryParameters: queryParameters,
+      options: Options(headers: headers),
+    );
+  }
+
+  // delete 메소드 추가
+  static Future<Response> delete(String path,
+      {dynamic data,
+      Map<String, dynamic>? queryParameters,
+      Map<String, dynamic>? headers}) async {
+    return _dio.delete(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: Options(headers: headers),
+    );
+  }
+
   // fetch 메소드 추가
   static Future<Response> fetch(RequestOptions requestOptions) {
     return _dio.fetch(requestOptions);

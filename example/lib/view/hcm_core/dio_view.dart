@@ -9,12 +9,24 @@ class DioView extends GetView<DioController> {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: OutlinedButton(
-          onPressed: () {
-            AuthRepository()
-                .login(userMobileNo: "01000000000", userPwd: "116622");
-          },
-          child: Text('로그인 테스트'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            OutlinedButton(
+              onPressed: () {
+                AuthRepository()
+                    .login(userMobileNo: "01000000000", userPwd: "116622");
+              },
+              child: Text('로그인 테스트'),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                AuthRepository()
+                    .login(userMobileNo: "01000000000", userPwd: "116622");
+              },
+              child: Text('로그인 테스트'),
+            ),
+          ],
         ),
       ),
     );
