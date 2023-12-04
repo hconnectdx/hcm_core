@@ -18,11 +18,11 @@ pubspec.yaml > dependencies에 해당 코드를 추가합니다.
 ```  
 
 ---
-### HCDio
+### HCApi
 #### init
 
 ```dart
-HCDio.initialize(
+HCApi.initialize(
     baseUrl: 'https://mapi-stg.health-on.co.kr',
     headers: {
       'Content-Type': 'application/json',
@@ -32,14 +32,14 @@ HCDio.initialize(
 
 #### POST
 ```dart
-Response response = await HCDio.post(
+Response response = await HCApi.post(
       '/IF-HLO-CHMC-0300',
       data: {
         'userCountryNo': '82',
         'userMobileNo': userMobileNo,
         'userPwd': userPwd,
         'osType': Platform.isAndroid ? '90103200' : '90103100',
-        'registrationId': HCDio.temp_token,
+        'registrationId': HCApi.temp_token,
         'languageCode': '10801300',
         'appVersion': '1.2.7',
         'reqDate': "20231108171931",
@@ -52,7 +52,7 @@ Response response = await HCDio.post(
 
 #### GET
 ```dart
-Response response = await HCDio.get(
+Response response = await HCApi.get(
       '/IF-HLO-CHMC-XXXX',
       queryParameters: {
         'id': userId
@@ -65,7 +65,7 @@ Response response = await HCDio.get(
 
 #### DELETE
 ```dart
-Response response = await HCDio.delete(
+Response response = await HCApi.delete(
       '/IF-HLO-CHMC-XXXX',
       queryParameters: {
         'id': userId
@@ -77,10 +77,10 @@ Response response = await HCDio.delete(
 ```
 
 ---
-### HCHive
+### HCDB
 #### 저장
 ```dart
-bool data = await HCHive.saveData(
+bool data = await HCDB.saveData(
                   {
                     'key1': 'value1',
                     'ket2': 'value2',
@@ -90,7 +90,7 @@ bool data = await HCHive.saveData(
 
 #### 불러오기
 ```dart
-await HCHive.getData('key1');
+await HCDB.getData('key1');
 ```
 ---
 ### BLE scan

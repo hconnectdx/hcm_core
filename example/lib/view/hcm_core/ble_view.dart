@@ -6,7 +6,7 @@ class BleView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: BleScanView(),
+      body: BleScanView((device) {}),
     );
   }
 }

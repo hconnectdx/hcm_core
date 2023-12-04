@@ -2,8 +2,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:hcm_core/core/dio/hc_dio.dart';
-import 'package:hcm_core/core/hive/hc_hive.dart';
+import 'package:hcm_core/core/dio/hc_api.dart';
+import 'package:hcm_core/core/hive/hc_db.dart';
 
 class AuthRepository {
   static final AuthRepository _instance = AuthRepository._internal();
@@ -27,14 +27,14 @@ class AuthRepository {
   }
 
   Future<void> _loginStep1(String userMobileNo, String userPwd) async {
-    final response = await HCDio.post(
+    final response = await HCApi.post(
       '/IF-HLO-CHMC-0300',
       data: {
         'userCountryNo': '82',
         'userMobileNo': userMobileNo,
         'userPwd': userPwd,
         'osType': Platform.isAndroid ? '90103200' : '90103100',
-        'registrationId': HCDio.temp_token,
+        'registrationId': HCApi.temp_token,
         'languageCode': '10801300',
         'appVersion': '1.2.7',
         'reqDate': "20231108171931",
@@ -47,11 +47,11 @@ class AuthRepository {
     if (response.statusCode == 200) {
       final responseData = response.data;
       final tokensData = responseData['data'];
-      await HCHive.saveTokens(
+      await HCDB.saveTokens(
         accessToken: tokensData['accessToken'],
         refreshToken: tokensData['refreshToken'],
       );
-      await HCHive.saveAuthAndSno(
+      await HCDB.saveAuthAndSno(
         authId: tokensData['authId'],
         authKey: tokensData['authKey'],
         //authKey: tokensData['userSno'],
@@ -66,8 +66,8 @@ class AuthRepository {
   }
 
   Future<void> _loginStep2() async {
-    final response = await HCDio.post('/IF-HLO-CHMC-0500', data: {
-      'authKey': await HCHive.getAuthKey(),
+    final response = await HCApi.post('/IF-HLO-CHMC-0500', data: {
+      'authKey': await HCDB.getAuthKey(),
       'pageNum': 0,
       'reqDate': "20231108171931",
     });
@@ -75,7 +75,7 @@ class AuthRepository {
     if (response.statusCode == 200) {
       final responseData = response.data;
       final tokensData = responseData['data'];
-      await HCHive.saveAuthAndSno(
+      await HCDB.saveAuthAndSno(
         userSno: tokensData['userSno'],
       );
     } else {

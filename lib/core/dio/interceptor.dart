@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:hcm_core/core/dio/hc_dio.dart';
-import 'package:hcm_core/core/hive/hc_hive.dart';
+import 'package:hcm_core/core/dio/hc_api.dart';
+import 'package:hcm_core/core/hive/hc_db.dart';
 import 'package:logger/logger.dart';
 
 class CustomInterceptor extends Interceptor {
@@ -9,7 +9,7 @@ class CustomInterceptor extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     // 로그인 요청의 경우 토큰을 헤더에 추가하지 않음
     if (!options.path.contains("/login")) {
-      String? accessToken = await HCHive.getAccessToken();
+      String? accessToken = await HCDB.getAccessToken();
       if (accessToken != null) {
         options.headers["Authorization"] = "Bearer $accessToken";
       }
@@ -39,13 +39,13 @@ class CustomInterceptor extends Interceptor {
       RequestOptions requestOptions, ResponseInterceptorHandler handler) async {
     try {
       // refreshToken을 사용하여 토큰 갱신 요청
-      var newAccessToken = await HCDio.refreshToken();
+      var newAccessToken = await HCApi.refreshToken();
 
       // 새로운 엑세스 토큰으로 요청 헤더 업데이트
       requestOptions.headers["Authorization"] = "Bearer $newAccessToken";
 
       // 원래 요청 재전송
-      var response = await HCDio.fetch(requestOptions);
+      var response = await HCApi.fetch(requestOptions);
       return handler.resolve(response);
     } catch (e) {
       // 토큰 갱신 실패 처리

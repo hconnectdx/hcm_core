@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:hcm_core/core/dio/interceptor.dart';
-import 'package:hcm_core/core/hive/hc_hive.dart';
+import 'package:hcm_core/core/hive/hc_db.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-class HCDio {
+class HCApi {
   static final Dio _dio = Dio();
 
   // 임시적으로 사용하는 fcm 토큰
@@ -66,9 +66,9 @@ class HCDio {
 
   static Future<String> refreshToken() async {
     try {
-      final refreshToken = await HCHive.getRefreshToken();
-      final authId = await HCHive.getAuthId();
-      final userSno = await HCHive.getUserSno();
+      final refreshToken = await HCDB.getRefreshToken();
+      final authId = await HCDB.getAuthId();
+      final userSno = await HCDB.getUserSno();
 
       if (refreshToken == null || authId == null) {
         throw Exception('No refreshToken or authId available');
@@ -86,7 +86,7 @@ class HCDio {
 
       if (response.statusCode == 200 && response.data['retCd'] == '0') {
         final tokensData = response.data['data'];
-        await HCHive.saveTokens(
+        await HCDB.saveTokens(
           accessToken: tokensData['accessToken'],
           refreshToken: tokensData['refreshToken'],
         );

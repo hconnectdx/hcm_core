@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logger/logger.dart';
 
-class HCHive {
+class HCDB {
   static const String _authBox = 'authBox';
   static const String _accessTokenKey = 'accessToken';
   static const String _refreshTokenKey = 'refreshToken';

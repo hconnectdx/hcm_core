@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hcm_core/core/hive/hc_hive.dart';
+import 'package:hcm_core/core/hive/hc_db.dart';
 
 class HiveView extends GetView {
   @override
@@ -13,7 +13,7 @@ class HiveView extends GetView {
           children: [
             OutlinedButton(
               onPressed: () async {
-                await HCHive.saveData(
+                await HCDB.saveData(
                   {
                     'aa': 1,
                     'ss': 2,
@@ -24,7 +24,7 @@ class HiveView extends GetView {
             ),
             OutlinedButton(
               onPressed: () async {
-                var aa = await HCHive.getData('aa');
+                var aa = await HCDB.getData('aa');
                 print(aa);
               },
               child: Text('값 불러오기'),
