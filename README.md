@@ -14,7 +14,7 @@ pubspec.yaml > dependencies에 해당 코드를 추가합니다.
   hcm_core:
     git:
       url: https://github.com/hconnectdx/hcm_core.git
-      ref: 0.0.1 #(해당하는 버전)
+      ref: 0.0.3 #(해당하는 버전)
 ```  
 
 ---
