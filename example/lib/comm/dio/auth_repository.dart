@@ -27,16 +27,22 @@ class AuthRepository {
   }
 
   Future<void> _loginStep1(String userMobileNo, String userPwd) async {
-    final response = await HCDio.post('/IF-HLO-CHMC-0300', data: {
-      'userCountryNo': '82',
-      'userMobileNo': userMobileNo,
-      'userPwd': userPwd,
-      'osType': Platform.isAndroid ? '90103200' : '90103100',
-      'registrationId': HCDio.temp_token,
-      'languageCode': '10801300',
-      'appVersion': '1.2.7',
-      'reqDate': "20231108171931",
-    });
+    final response = await HCDio.post(
+      '/IF-HLO-CHMC-0300',
+      data: {
+        'userCountryNo': '82',
+        'userMobileNo': userMobileNo,
+        'userPwd': userPwd,
+        'osType': Platform.isAndroid ? '90103200' : '90103100',
+        'registrationId': HCDio.temp_token,
+        'languageCode': '10801300',
+        'appVersion': '1.2.7',
+        'reqDate': "20231108171931",
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
 
     if (response.statusCode == 200) {
       final responseData = response.data;

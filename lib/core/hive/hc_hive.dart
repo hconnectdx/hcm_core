@@ -18,7 +18,7 @@ class HCHive {
     }
   }
 
-  static void saveData(Map<String, dynamic> dataMap) async {
+  static Future<bool> saveData(Map<String, dynamic> dataMap) async {
     final box = await _openBox();
     try {
       for (String key in dataMap.keys) {
@@ -27,10 +27,12 @@ class HCHive {
     } catch (e) {
       // 저장 중 오류 발생 시 로그 기록
       Logger().e("Hive 저장 실패 메시지: $e");
+      return false;
     }
 
     // 모든 데이터가 성공적으로 저장된 후 로그 기록
     Logger().d("저장 성공 $dataMap");
+    return true;
   }
 
   static Future<dynamic> getData(String key, {dynamic defaultValue}) async {

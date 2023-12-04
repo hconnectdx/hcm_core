@@ -15,7 +15,62 @@ pubspec.yaml > dependencies에 해당 코드를 추가합니다.
     git:
       url: https://github.com/hconnectdx/hcm_core.git
       ref: 0.0.1 #(해당하는 버전)
+```  
+
+---
+### HCDio
+#### init
+
+```dart
+HCDio.initialize(
+    baseUrl: 'https://mapi-stg.health-on.co.kr',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  );
 ```
 
-## 개발 예제
-example 폴더에 예제가 준비돼 있습니다.
+#### POST
+```dart
+final response = await HCDio.post(
+      '/IF-HLO-CHMC-0300',
+      data: {
+        'userCountryNo': '82',
+        'userMobileNo': userMobileNo,
+        'userPwd': userPwd,
+        'osType': Platform.isAndroid ? '90103200' : '90103100',
+        'registrationId': HCDio.temp_token,
+        'languageCode': '10801300',
+        'appVersion': '1.2.7',
+        'reqDate': "20231108171931",
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+```
+---
+### HCHive
+#### 저장
+```dart
+bool data = await HCHive.saveData(
+                  {
+                    'key1': 'value1',
+                    'ket2': 'value2',
+                  },
+                );
+```
+
+#### 불러오기
+```dart
+await HCHive.getData('key1');
+```
+---
+### BLE scan
+
+```dart
+BleScanView((connectedDevice) {
+ // 스캔 후 연결한 디바이스 아이템이 콜백 됨
+})
+```
+<img src="readme/ble_scan.png" height="700">

@@ -12,8 +12,8 @@ class HiveView extends GetView {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             OutlinedButton(
-              onPressed: () {
-                HCHive.saveData(
+              onPressed: () async {
+                await HCHive.saveData(
                   {
                     'aa': 1,
                     'ss': 2,

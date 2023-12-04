@@ -6,7 +6,12 @@ import 'package:hcm_core_example/view/hcm_core/dio_view.dart';
 import 'package:hcm_core_example/view/home_view.dart';
 
 void main() {
-  HCDio.initialize(baseUrl: 'https://mapi-stg.health-on.co.kr');
+  HCDio.initialize(
+    baseUrl: 'https://mapi-stg.health-on.co.kr',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  );
   runApp(HcmCoreApp());
 }
 
