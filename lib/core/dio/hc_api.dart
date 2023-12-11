@@ -5,6 +5,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class HCApi {
   static final Dio _dio = Dio();
+  static Dio get dio => _dio;
 
   // 임시적으로 사용하는 fcm 토큰
   static const String temp_token =
