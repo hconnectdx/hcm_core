@@ -23,6 +23,18 @@ class HCDio {
     );
   }
 
+  /// Update Access Token
+  static void setAccessToken(String accessToken) {
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          options.headers['Authorization'] = 'Bearer $accessToken';
+          return handler.next(options);
+        },
+      ),
+    );
+  }
+
   // post 메소드 추가
   static Future<Response> post(String path,
       {dynamic data, Map<String, dynamic>? headers}) async {
