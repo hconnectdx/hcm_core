@@ -1,6 +1,6 @@
 name: hcm_core
 description: HealthConnect Core Library
-version: 0.0.5
+version: 0.0.6
 homepage:
 
 environment:
@@ -70,10 +70,7 @@ flutter:
         fileName: hcm_core_web.dart
 
   # To add assets to your plugin package, add an assets section, like this:
-  assets:
-    - assets/img/
-    - assets/fonts/
-    - assets/lottie/
+  # assets:
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
