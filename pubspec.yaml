@@ -1,6 +1,6 @@
 name: hcm_core
 description: HealthConnect Core Library
-version: 0.0.8
+version: 0.0.5
 homepage:
 
 environment:
