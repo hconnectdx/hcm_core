@@ -20,10 +20,17 @@ class CustomInterceptor extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     final retCd = response.data['retCd'];
-    if (retCd == 2) {
+    if (retCd == 1) {
+      Logger().e("Expired Token : 만료된 토큰. 재시도합니다");
       _handleTokenExpiration(response.requestOptions, handler);
-    } else {
+    } else if (retCd == 2) {
+      Logger().e("Invaild Token : 인증되지 않은 토큰");
       return handler.next(response); // 다른 retCd에 대한 처리
+    } else if (retCd == 3) {
+      Logger().e("Expired Refresh Token : 리프레스토큰 만료");
+      return handler.next(response);
+    } else {
+      return handler.next(response);
     }
   }
 
