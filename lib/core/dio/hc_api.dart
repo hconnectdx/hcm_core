@@ -25,7 +25,7 @@ class HCApi {
           responseBody: true,
           responseHeader: true,
           error: true,
-          compact: false,
+          compact: true,
           maxWidth: 90),
     );
   }

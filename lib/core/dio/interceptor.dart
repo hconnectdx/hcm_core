@@ -30,7 +30,6 @@ class CustomInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     // 에러 발생 시 로직
-    print('Error: ${err.response?.statusCode}');
     Logger().e("${err.response?.data}");
     return handler.next(err); // 에러를 계속 전파합니다.
   }
