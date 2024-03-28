@@ -20,7 +20,7 @@ class CustomInterceptor extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     final retCd = response.data['retCd'];
-    if (retCd == "2") {
+    if (retCd == 2) {
       _handleTokenExpiration(response.requestOptions, handler);
     } else {
       return handler.next(response); // 다른 retCd에 대한 처리
@@ -40,6 +40,8 @@ class CustomInterceptor extends Interceptor {
     try {
       // refreshToken을 사용하여 토큰 갱신 요청
       var newAccessToken = await HCApi.refreshToken();
+
+      Logger().e("토큰을 갱신하였습니다.");
 
       // 새로운 엑세스 토큰으로 요청 헤더 업데이트
       requestOptions.headers["Authorization"] = "Bearer $newAccessToken";
