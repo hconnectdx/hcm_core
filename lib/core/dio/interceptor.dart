@@ -19,6 +19,7 @@ class CustomInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
+    Logger().d("response Code: ${response.statusCode}");
     final retCd = response.data['retCd'];
     if (retCd == 1) {
       Logger().e("Expired Token : 만료된 토큰. 재시도합니다");
