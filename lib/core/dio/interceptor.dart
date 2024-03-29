@@ -47,8 +47,6 @@ class CustomInterceptor extends Interceptor {
       // refreshToken을 사용하여 토큰 갱신 요청
       var newAccessToken = await HCApi.refreshToken();
 
-      Logger().e("토큰을 갱신하였습니다.");
-
       // 새로운 엑세스 토큰으로 요청 헤더 업데이트
       requestOptions.headers["Authorization"] = "Bearer $newAccessToken";
 
