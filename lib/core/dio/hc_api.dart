@@ -18,16 +18,16 @@ class HCApi {
       headers: headers ?? {}, // 헤더 추가
     );
     _dio.interceptors.add(CustomInterceptor());
-  //   _dio.interceptors.add(
-  //     PrettyDioLogger(
-  //         requestHeader: true,
-  //         requestBody: true,
-  //         responseBody: true,
-  //         responseHeader: true,
-  //         error: true,
-  //         compact: true,
-  //         maxWidth: 90),
-  //   );
+    _dio.interceptors.add(
+      PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: true,
+          error: true,
+          compact: true,
+          maxWidth: 90),
+    );
   }
 
   /// Update Access Token
