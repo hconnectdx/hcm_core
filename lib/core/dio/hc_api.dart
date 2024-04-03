@@ -31,16 +31,13 @@ class HCApi {
     );
   }
 
+  static void refreshHeader() {
+    _dio.options.headers = {'Content-Type': 'application/json'};
+  }
+
   /// Update Access Token
   static void setAccessToken(String accessToken) {
-    _dio.interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) {
-          options.headers['Authorization'] = 'Bearer $accessToken';
-          return handler.next(options);
-        },
-      ),
-    );
+    _dio.options.headers.addAll({'Authorization':'Bearer $accessToken'});
   }
 
   // post 메소드 추가
