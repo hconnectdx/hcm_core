@@ -32,7 +32,7 @@ class HCApi {
   }
 
   static void refreshHeader() {
-    _dio.options.headers = {'Content-Type': 'application/json'};
+    _dio.options.headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
   }
 
   /// Update Access Token
