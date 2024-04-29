@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:hcm_core/core/hive/hc_db.dart';
 
 class HiveView extends GetView {
+  const HiveView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,7 @@ class HiveView extends GetView {
                 var aa = await HCDB.getData('aa');
                 print(aa);
               },
-              child: Text('값 불러오기'),
+              child: const Text('값 불러오기'),
             )
           ],
         ),
