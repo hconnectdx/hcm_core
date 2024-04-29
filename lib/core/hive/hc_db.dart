@@ -68,22 +68,32 @@ class HCDB {
 
   static Future<String?> getAccessToken() async {
     final box = await _openBox();
-    return box.get(_accessTokenKey);
+    return await box.get(_accessTokenKey);
+  }
+
+  static Future<void> setAccessToken(String accessToken) async {
+    final box = await _openBox();
+    await box.put(_accessTokenKey, accessToken);
   }
 
   static Future<String?> getRefreshToken() async {
     final box = await _openBox();
-    return box.get(_refreshTokenKey);
+    return await box.get(_refreshTokenKey);
+  }
+
+  static Future<void> setRefreshToken(String refreshToken) async {
+    final box = await _openBox();
+    await box.put(_refreshTokenKey, refreshToken);
   }
 
   static Future<String?> getAuthId() async {
     final box = await _openBox();
-    return box.get(_authId);
+    return await box.get(_authId);
   }
 
   static Future<String?> getAuthKey() async {
     final box = await _openBox();
-    return box.get(_authKey);
+    return await box.get(_authKey);
   }
 
   static Future<String?> getUserSno() async {

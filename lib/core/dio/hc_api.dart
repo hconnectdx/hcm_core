@@ -4,19 +4,26 @@ import 'package:hcm_core/core/hive/hc_db.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+
 class HCApi {
   static final Dio _dio = Dio();
   static Dio get dio => _dio;
+  static Future<String> Function()? _refreshAccessToken;
+  static Future<String> Function()? get refreshAccessToken =>
+      _refreshAccessToken;
 
-  // 임시적으로 사용하는 fcm 토큰
-  static const String temp_token =
-      "dKpI6DSWSLyVFx8UE6QDRQ:APA91bETqIZq1qz3Y5-gHsDHx3kL1VHU2rY0FRrW13NtP5yOzaMo9S9yiF_TYTVSEMmF54F3DxavJRimMVDXoLQYUSzMgTUl6H2CEWeASg4VJjjs0bXLvDRiHilsSOYsaqs73-dFU0we";
+  // 401 오류 연속 발생 횟수 추적
+  static int _401count = 0;
 
-  static void initialize(
-      {required String baseUrl, Map<String, dynamic>? headers}) {
+  static void initialize({
+    required String baseUrl,
+    Map<String, dynamic>? headers,
+    Future<String> Function()? refreshAccessToken,
+  }) {
     _dio.options = BaseOptions(
       baseUrl: baseUrl,
       headers: headers ?? {}, // 헤더 추가
+      followRedirects: false,
     );
     _dio.interceptors.add(CustomInterceptor());
     _dio.interceptors.add(
@@ -29,15 +36,20 @@ class HCApi {
           compact: false,
           maxWidth: 90),
     );
+    _refreshAccessToken = refreshAccessToken;
   }
 
   static void refreshHeader() {
-    _dio.options.headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
+    _dio.options.headers.clear();
+    _dio.options.headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
   }
 
   /// Update Access Token
   static void setAccessToken(String accessToken) {
-    _dio.options.headers.addAll({'Authorization':'Bearer $accessToken'});
+    _dio.options.headers.addAll({'Authorization': 'Bearer $accessToken'});
   }
 
   // post 메소드 추가
@@ -79,7 +91,6 @@ class HCApi {
     try {
       final refreshToken = await HCDB.getRefreshToken();
       final authId = await HCDB.getAuthId();
-      final userSno = await HCDB.getUserSno();
 
       if (refreshToken == null || authId == null) {
         throw Exception('No refreshToken or authId available');
@@ -115,8 +126,7 @@ class HCApi {
           response: response,
           type: DioExceptionType.badCertificate,
         );
-      }
-      else {
+      } else {
         Logger().e('Bad Response: ${response.data}');
         throw DioException(
           requestOptions: response.requestOptions,

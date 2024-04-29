@@ -172,7 +172,7 @@ class BluetoothController extends GetxController {
 
     // 타임아웃 처리를 위한 스트림 변환
     Stream<List<int>>? timedStream =
-        c?.lastValueStream.timeout(Duration(seconds: 30), onTimeout: (sink) {
+        c?.lastValueStream.timeout(const Duration(seconds: 30), onTimeout: (sink) {
       sink.addError(TimeoutException('No event received for 30 seconds'));
     });
     // 스트림 구독 시작

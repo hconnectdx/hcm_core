@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core/core/ble/view/ble_scan_view.dart';
 import 'package:hcm_core_example/controller/my_home_controller.dart';
-import 'package:hcm_core_example/view/hcm_core/dio_view.dart';
-import 'package:hcm_core_example/view/hcm_core/hive_view.dart';
+import 'package:hcm_core_example/view/dio/ui/dio_view.dart';
+import 'package:hcm_core_example/view/hive/hive_view.dart';
 
 class HomeView extends GetView<HomeController> {
+  const HomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,19 +24,19 @@ class HomeView extends GetView<HomeController> {
                 },
               ));
             },
-            child: Text('블루투스 샘플 확인'),
+            child: const Text('블루투스 샘플 확인'),
           ),
           OutlinedButton(
             onPressed: () {
-              Get.to(DioView());
+              Get.to(const DioView());
             },
-            child: Text('dio 샘플 확인'),
+            child: const Text('dio 샘플 확인'),
           ),
           OutlinedButton(
             onPressed: () {
-              Get.to(HiveView());
+              Get.to(const HiveView());
             },
-            child: Text('Hive 샘플 확인'),
+            child: const Text('Hive 샘플 확인'),
           ),
         ],
       ),

@@ -9,7 +9,7 @@ class BleScanView extends GetView<BluetoothController> {
   // TODO: implement controller
   BluetoothController get controller => Get.put(BluetoothController(onConnect));
 
-  BleScanView(this.onConnect);
+  BleScanView(this.onConnect, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +40,10 @@ class BleScanView extends GetView<BluetoothController> {
   }
 
   Text _buildAppBarTitle() {
-    return Text(
+    return const Text(
       '블루투스 연동',
       style: TextStyle(
-        color: const Color(0xff707070),
+        color: Color(0xff707070),
         fontSize: 15.0,
         fontWeight: FontWeight.bold,
       ),
@@ -60,7 +60,7 @@ class BleScanView extends GetView<BluetoothController> {
 
   Widget _buildLoadingLottieImg() {
     return IconButton(
-      icon: Icon(Icons.access_alarms_sharp),
+      icon: const Icon(Icons.access_alarms_sharp),
       onPressed: () {},
     );
   }
@@ -87,7 +87,7 @@ class BleScanView extends GetView<BluetoothController> {
           // ),
           _buildConnectedTile(),
           const SizedBox(height: 31),
-          Text(
+          const Text(
             '블루투스 연동 디바이스',
             style: TextStyle(color: Color(0xff0a0a0a), fontSize: 14.0),
           ),
@@ -130,7 +130,7 @@ class BleScanView extends GetView<BluetoothController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(height: 30),
-        Text(
+        const Text(
           '연결된 디바이스',
           style: TextStyle(color: Colors.black, fontSize: 14.0),
         ),
@@ -145,7 +145,7 @@ class BleScanView extends GetView<BluetoothController> {
             child: Column(
               children: [
                 ListTile(
-                  contentPadding: EdgeInsets.only(left: 26.0, right: 16.0),
+                  contentPadding: const EdgeInsets.only(left: 26.0, right: 16.0),
                   title: _buildTileText(device),
                   subtitle: (controller.connectedDevice.value == device)
                       ? _buildSubTileText()
@@ -213,7 +213,7 @@ class BleScanView extends GetView<BluetoothController> {
         () => Column(
           children: [
             ListTile(
-              contentPadding: EdgeInsets.only(left: 26.0, right: 16.0),
+              contentPadding: const EdgeInsets.only(left: 26.0, right: 16.0),
               title: _buildTileText(device),
               subtitle: (controller.connectedDevice.value == device)
                   ? _buildConnectingSubText()
@@ -284,8 +284,8 @@ class BleScanView extends GetView<BluetoothController> {
               children: [
                 const Icon(Icons.info, color: Color(0xff0060af)),
                 Container(width: 3),
-                Text("핀 번호는 밴드에서 확인 가능합니다",
-                    style: const TextStyle(
+                const Text("핀 번호는 밴드에서 확인 가능합니다",
+                    style: TextStyle(
                       color: Color(0xff0060af),
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -293,10 +293,10 @@ class BleScanView extends GetView<BluetoothController> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 22),
+          const Padding(
+            padding: EdgeInsets.only(left: 22),
             child: Text("핀번호 화면 진입 방법 : 밴드 홈화면 > 설정 > 블루투스",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 12,
                 )),
           )

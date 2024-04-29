@@ -1,21 +1,19 @@
+import 'package:dio/dio.dart' as HCDio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hcm_core/core/dio/hc_api.dart';
-import 'package:hcm_core_example/binding/init_binding.dart';
-import 'package:hcm_core_example/view/hcm_core/dio_view.dart';
+import 'package:hcm_core/core/hive/hc_db.dart';
+import 'package:hcm_core_example/view/dio/ui/dio_view.dart';
 import 'package:hcm_core_example/view/home_view.dart';
+import 'package:logger/logger.dart';
 
 void main() {
-  HCApi.initialize(
-    baseUrl: 'https://mapi-stg.health-on.co.kr',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  );
-  runApp(HcmCoreApp());
+  runApp(const HcmCoreApp());
 }
 
 class HcmCoreApp extends StatelessWidget {
+  const HcmCoreApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -26,9 +24,8 @@ class HcmCoreApp extends StatelessWidget {
       initialRoute: '/home',
       locale: Get.deviceLocale,
       getPages: [
-        GetPage(name: '/home', page: () => HomeView(), binding: InitBinding()),
-        GetPage(
-            name: '/dio_view', page: () => DioView(), binding: InitBinding())
+        GetPage(name: '/home', page: () => HomeView()),
+        GetPage(name: '/dio_view', page: () => DioView())
       ],
     );
   }
