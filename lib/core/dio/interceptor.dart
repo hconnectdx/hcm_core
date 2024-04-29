@@ -6,21 +6,11 @@ import 'package:logger/logger.dart';
 
 class CustomInterceptor extends Interceptor {
   @override
-  void onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
-    // 로그인 요청의 경우 토큰을 헤더에 추가하지 않음
-    if (!options.path.contains("/login")) {
-      String? accessToken = await HCDB.getAccessToken();
-      if (accessToken != null) {
-        options.headers["Authorization"] = "Bearer $accessToken";
-      }
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    if (options.path.contains('login')) {
+      HCApi.refreshHeader();
     }
-    return super.onRequest(options, handler);
-  }
-
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    return handler.next(response);
+    super.onRequest(options, handler);
   }
 
   @override
@@ -68,17 +58,19 @@ class CustomInterceptor extends Interceptor {
   void _handleTokenExpiration(
       RequestOptions requestOptions, ErrorInterceptorHandler handler) async {
     try {
-      // refreshToken을 사용하여 토큰 갱신 요청
+      HCApi.refreshHeader();
+
       final Function()? onRefreshToken = HCApi.refreshAccessToken;
+
       if (onRefreshToken == null) {
         throw Exception("No refresh token function available");
       }
 
       var newAccessToken = await onRefreshToken();
-      HCApi.refreshHeader();
       HCApi.setAccessToken(newAccessToken);
 
       // 원래 요청 재전송
+      requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
       var response = await HCApi.fetch(requestOptions);
       return handler.resolve(response);
     } catch (e) {

@@ -13,10 +13,8 @@ class DioView extends GetView {
   Widget build(BuildContext context) {
     HCApi.initialize(
       baseUrl: 'https://ichms.hconnect.co.kr',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       refreshAccessToken: () async {
+        HCApi.refreshHeader();
         FlutterSecureStorage storage = FlutterSecureStorage();
         String refreshToken = await storage.read(key: "refreshToken") ?? "";
 

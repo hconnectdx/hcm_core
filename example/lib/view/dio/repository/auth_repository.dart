@@ -24,13 +24,16 @@ class AuthRepository {
         'password': password,
       });
 
-      HCApi.setAccessToken(response.accessToken ?? "");
-
       final storage = FlutterSecureStorage();
-      await storage.write(
-          key: "accessToken", value: response.accessToken ?? "");
-      await storage.write(
-          key: "refreshToken", value: response.refreshToken ?? "");
+      final accessToken = response.accessToken ?? "";
+      final refreshToken = response.refreshToken ?? "";
+      await storage.write(key: "accessToken", value: accessToken);
+      await storage.write(key: "refreshToken", value: refreshToken);
+
+      print("access Token: ${accessToken}");
+      print("refresh Token: ${refreshToken}");
+
+      HCApi.setAccessToken(accessToken);
 
       return response;
     } on APIException catch (e) {
@@ -44,7 +47,6 @@ class AuthRepository {
 
   Future<Login?> refreshToken({required String refreshToken}) async {
     try {
-      HCApi.refreshHeader();
       final response = await AccountApi(HCApi.dio).refreshToken({
         'refreshToken': refreshToken,
       });
