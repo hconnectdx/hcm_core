@@ -18,22 +18,27 @@ class DioView extends GetView {
         FlutterSecureStorage storage = FlutterSecureStorage();
         String refreshToken = await storage.read(key: "refreshToken") ?? "";
 
-        Login? response =
-            await AuthRepository().refreshToken(refreshToken: refreshToken);
+        try {
+          Login? response =
+              await AuthRepository().refreshToken(refreshToken: refreshToken);
 
-        if (response == null) {
-          // 로그인 페이지로
-          Logger().e("로그인 페이지로");
-          return "Error";
+          if (response == null || response.retCd == 3) {
+            Logger().e("로그인 페이지로");
+            return null;
+          }
+
+          String newAccessToken = response.accessToken ?? "";
+          String newRefreshToken = response.refreshToken ?? "";
+
+          await storage.write(key: "accessToken", value: newAccessToken);
+          await storage.write(key: "refreshToken", value: newRefreshToken);
+
+          return newAccessToken;
+        } catch (e) {
+          Logger().e("Exception: ${e}");
+          // 로그아웃
+          return null;
         }
-
-        String newAccessToken = response.accessToken ?? "";
-        String newRefreshToken = response.refreshToken ?? "";
-
-        await storage.write(key: "accessToken", value: newAccessToken);
-        await storage.write(key: "refreshToken", value: newRefreshToken);
-
-        return newAccessToken;
       },
     );
 

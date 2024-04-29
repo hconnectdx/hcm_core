@@ -7,8 +7,8 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class HCApi {
   static final Dio _dio = Dio();
   static Dio get dio => _dio;
-  static Future<String> Function()? _refreshAccessToken;
-  static Future<String> Function()? get refreshAccessToken =>
+  static Future<String?> Function()? _refreshAccessToken;
+  static Future<String?> Function()? get refreshAccessToken =>
       _refreshAccessToken;
 
   /// TODO 401 오류 연속 발생 횟수 추적
@@ -17,7 +17,7 @@ class HCApi {
   static void initialize({
     required String baseUrl,
     Map<String, dynamic>? headers,
-    Future<String> Function()? refreshAccessToken,
+    Future<String?> Function()? refreshAccessToken,
   }) {
     _dio.options = BaseOptions(
       baseUrl: baseUrl,

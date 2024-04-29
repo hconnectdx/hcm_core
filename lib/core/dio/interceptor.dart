@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hcm_core/core/dio/hc_api.dart';
 import 'package:hcm_core/core/dio/model/response.dart';
-import 'package:hcm_core/core/hive/hc_db.dart';
 import 'package:logger/logger.dart';
 
 class CustomInterceptor extends Interceptor {
@@ -31,14 +30,10 @@ class CustomInterceptor extends Interceptor {
         _handleUnAuthorized(err, handler);
         break;
       case 403:
-        // 인가되지 않은 요청
-        break;
       default:
         // 기타 오류
-        break;
+        throw APIException(error: err);
     }
-
-    // return handler.next(apiException);
   }
 
   void _handleUnAuthorized(
@@ -47,7 +42,7 @@ class CustomInterceptor extends Interceptor {
     final header = dioException.requestOptions.headers;
     Logger().d("헤더 확인 ${header['Authorization']}");
     if (header['Authorization'] == null) {
-      // 로그인 실패
+      // 로그인 실패 or 리프레시 토큰 만료
       throw APIException(error: dioException);
     } else {
       // 토큰 만료
@@ -57,47 +52,35 @@ class CustomInterceptor extends Interceptor {
 
   void _handleTokenExpiration(
       RequestOptions requestOptions, ErrorInterceptorHandler handler) async {
+    HCApi.refreshHeader();
+    final Function()? onRefreshToken = HCApi.refreshAccessToken;
+
     try {
-      HCApi.refreshHeader();
-
-      final Function()? onRefreshToken = HCApi.refreshAccessToken;
-
       if (onRefreshToken == null) {
         throw Exception("No refresh token function available");
       }
 
-      var newAccessToken = await onRefreshToken();
+      String? newAccessToken = await onRefreshToken();
+
+      if (newAccessToken == null ||
+          newAccessToken.isEmpty ||
+          newAccessToken.length < 10) {
+        throw Exception("refresh token is expired or invalid");
+      }
+
       HCApi.setAccessToken(newAccessToken);
 
       // 원래 요청 재전송
       requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
       var response = await HCApi.fetch(requestOptions);
+
       return handler.resolve(response);
-    } catch (e) {
+    } on Exception catch (e) {
       // 토큰 갱신 실패 처리
-      throw APIException(
-          error: DioException(
-              requestOptions: requestOptions,
-              error: "토큰 갱신에 실패하였습니다. 다시 로그인해주세요"));
+      Logger().e("토큰 갱신 실패: ${e}");
+      // throw APIException(
+      //     error: DioException(
+      //         requestOptions: requestOptions, error: e.toString()));
     }
   }
 }
-
-//
-// class CustomLogInterceptor extends LogInterceptor {}
-
-//
-// case 0:
-// // 성공 처리
-// break;
-// case 1:
-// // 처리되지 않은 인가 처리
-// break;
-// case 2:
-// // 엑세스토큰 만료 처리
-// break;
-// case 3:
-// // 엑세스토큰이 유효하지 않음 처리
-// break;
-// default:
-// // 기타 경우 처리
