@@ -67,15 +67,16 @@ class AuthRepository {
     return null;
   }
 
-  Future<MyInfo?> getMyInfo() async {
+  Future<String?> getMyInfo() async {
     try {
       final response = await AccountApi(HCApi.dio).getMyInfo();
-      return response;
+      return response.data?.toJson().toString();
     } on APIException catch (e) {
       Logger().e("APIException: ${e}");
+      return e.error.toString();
     } on Exception catch (e) {
       Logger().e("Exception: ${e}");
+      return e.toString();
     }
-    return null;
   }
 }

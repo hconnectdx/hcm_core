@@ -28,7 +28,7 @@ class HomeView extends GetView<HomeController> {
           ),
           OutlinedButton(
             onPressed: () {
-              Get.to(const DioView());
+              Get.to(DioView());
             },
             child: const Text('dio 샘플 확인'),
           ),

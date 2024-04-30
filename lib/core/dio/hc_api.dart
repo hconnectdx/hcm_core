@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:hcm_core/core/dio/interceptor.dart';
-import 'package:hcm_core/core/hive/hc_db.dart';
-import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class HCApi {
@@ -10,9 +8,6 @@ class HCApi {
   static Future<String?> Function()? _refreshAccessToken;
   static Future<String?> Function()? get refreshAccessToken =>
       _refreshAccessToken;
-
-  /// TODO 401 오류 연속 발생 횟수 추적
-  static int _401count = 0;
 
   static void initialize({
     required String baseUrl,
@@ -45,7 +40,7 @@ class HCApi {
     };
   }
 
-  /// Update Access Token
+  // Update Access Token
   static void setAccessToken(String accessToken) {
     _dio.options.headers.addAll({'Authorization': 'Bearer $accessToken'});
   }
