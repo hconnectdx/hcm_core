@@ -55,10 +55,15 @@ class CustomInterceptor extends Interceptor {
       throw Exception("No refresh token function available");
     }
 
-    String? newAccessToken = await onRefreshToken();
+    String? newAccessToken;
 
-    if (isTokenAvailable(newAccessToken) == false) {
-      Logger().e("Refresh token failed");
+    try {
+      newAccessToken = await onRefreshToken();
+      if (isTokenAvailable(newAccessToken) == false) {
+        throw Exception("Refresh token failed");
+      }
+    } catch (e) {
+      Logger().e(e.toString());
       return;
     }
 

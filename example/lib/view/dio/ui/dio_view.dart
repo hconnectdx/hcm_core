@@ -23,15 +23,25 @@ class _DioViewState extends State<DioView> {
           children: [
             OutlinedButton(
               onPressed: () async {
-                await AuthRepository()
-                    .login(email: "test1@test.com", password: "1234");
+                try {
+                  await AuthRepository()
+                      .login(email: "test1@test.com", password: "1234");
+                } catch (e) {
+                  print("Exception: ${e}");
+                  print("로그인에 실패했어요~");
+                }
               },
               child: const Text('로그인 테스트'),
             ),
             OutlinedButton(
               onPressed: () async {
-                text = await AuthRepository().getMyInfo() ?? "";
-                setState(() {});
+                try {
+                  text = await AuthRepository().getMyInfo() ?? "";
+                  setState(() {});
+                } catch (e) {
+                  print("Exception: ${e}");
+                  print("정보얻기 실패했어요~");
+                }
               },
               child: const Text('정보 얻기'),
             ),

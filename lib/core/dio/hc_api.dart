@@ -12,6 +12,9 @@ class HCApi {
   static void initialize({
     required String baseUrl,
     Map<String, dynamic>? headers,
+    // * Future<String?> Function()? refreshAccessToken
+    // * refreshToken을 App레벨에서 얻고, 콜백으로 전달 받아야 함.
+    // ** return 값은 String? 또는 Exception을 발생시켜야 함.
     Future<String?> Function()? refreshAccessToken,
   }) {
     _dio.options = BaseOptions(
