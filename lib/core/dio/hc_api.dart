@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:hcm_core/core/dio/interceptor.dart';
+import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:dio_smart_retry/dio_smart_retry.dart';
 
 class HCApi {
   static final Dio _dio = Dio();
@@ -19,6 +21,7 @@ class HCApi {
   }) {
     _dio.options = BaseOptions(
       baseUrl: baseUrl,
+      receiveTimeout: const Duration(seconds: 15),
       headers: headers ?? {}, // 헤더 추가
     );
     _dio.interceptors.add(CustomInterceptor());
@@ -31,6 +34,19 @@ class HCApi {
           error: true,
           compact: false,
           maxWidth: 90),
+    );
+
+    _dio.interceptors.add(
+      RetryInterceptor(
+        dio: _dio,
+        logPrint: Logger().e,
+        retries: 3,
+        retryDelays: const [
+          Duration(seconds: 5),
+          Duration(seconds: 5),
+          Duration(seconds: 5),
+        ],
+      ),
     );
     _refreshAccessToken = refreshAccessToken;
   }
