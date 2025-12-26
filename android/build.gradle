@@ -25,6 +25,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace 'kr.co.hconnect.hcm_core'
     compileSdkVersion 31
 
     compileOptions {
