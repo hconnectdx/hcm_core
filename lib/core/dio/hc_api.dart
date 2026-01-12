@@ -65,9 +65,20 @@ class HCApi {
   }
 
   // post 메소드 추가
-  static Future<Response> post(String path,
-      {dynamic data, Map<String, dynamic>? headers}) async {
-    return _dio.post(path, data: data, options: Options(headers: headers));
+  static Future<Response> post(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? headers,
+    String? contentType,
+  }) async {
+    return _dio.post(
+      path,
+      data: data,
+      options: Options(
+        headers: headers,
+        contentType: contentType,
+      ),
+    );
   }
 
   // get 메소드 추가
